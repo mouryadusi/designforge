@@ -4,7 +4,7 @@ import { Renderer } from "@/components/Renderer";
 import { applyPatch, type Op } from "@/lib/patch";
 import { FONT_VALUES, type Project } from "@/lib/spec";
 
-type Mode = "local" | "gemini","groq";
+type Mode = "local" | "gemini" | "groq";
 const VW = { d: "1040px", t: "768px", m: "390px" } as const;
 const SUGGEST = ["A premium restaurant site called Ember with reservations and reviews", "Modern SaaS analytics dashboard for startups", "Brutalist architecture studio portfolio", "Playful learning platform for students"];
 
