@@ -9,7 +9,7 @@ export const maxDuration = 60;
 
 const Body = z.object({
   prompt: z.string().min(5).max(4000),
-  mode: Mode,
+  mode: Mode
 });
 
 export async function POST(req: Request) {
@@ -29,21 +29,16 @@ export async function POST(req: Request) {
     let projects;
 
     if (b.data.mode === "gemini") {
-      // Existing Gemini integration preserved
       projects = await geminiGenerate(b.data.prompt);
-
     } else if (b.data.mode === "groq") {
-      // New Groq integration
       projects = await groqGenerate(b.data.prompt);
-
     } else {
-      // Existing local generation preserved
       projects = localGenerate(b.data.prompt);
     }
 
     return Response.json({
       mode: b.data.mode,
-      projects,
+      projects
     });
 
   } catch (e) {
