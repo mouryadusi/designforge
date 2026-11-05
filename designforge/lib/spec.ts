@@ -1,0 +1,13 @@
+import { z } from "zod";
+export const FONT_VALUES = ["Georgia,serif", "Inter,system-ui,sans-serif", '"IBM Plex Mono",ui-monospace,monospace'] as const;
+export const SectionType = z.enum(["nav", "hero", "features", "testimonials", "pricing", "cta", "footer"]);
+const Hex = z.string().regex(/^#[0-9a-fA-F]{6}$/);
+export const Style = z.object({ bg: Hex.optional(), fg: Hex.optional(), hs: z.number().min(16).max(140).optional(), pd: z.number().min(0).max(240).optional(), al: z.enum(["left", "center", "right"]).optional(), hid: z.boolean().optional() });
+export const Section = z.object({ id: z.string().min(1), ty: SectionType, p: z.record(z.string(), z.string().max(2000)), st: Style });
+export const Tokens = z.object({ bg: Hex, fg: Hex, ac: Hex, font: z.enum(FONT_VALUES), r: z.number().min(0).max(40), al: z.enum(["left", "center", "right"]), hs: z.number().min(24).max(140), up: z.number().min(0).max(1), mo: z.enum(["none", "up", "fade", "clip", "scale"]) });
+export const Page = z.object({ id: z.string().min(1), name: z.string().min(1).max(40), sections: z.array(Section).min(1).max(30) });
+export const Project = z.object({ vn: z.string(), brand: z.string().max(60), cta: z.string().max(40), feat: z.string().max(1000), tokens: Tokens, pages: z.array(Page).min(1).max(12) });
+export type Project = z.infer<typeof Project>;
+export type Section = z.infer<typeof Section>;
+export type SectionType = z.infer<typeof SectionType>;
+export type Tokens = z.infer<typeof Tokens>;
